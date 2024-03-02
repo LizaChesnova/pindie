@@ -1,20 +1,12 @@
 'use client'
 import Styles from "./Games.module.css";
 import { getGamesById } from "../../data/data-utils.js";
-import { useState } from 'react';
-import { Overlay } from '../../components/Overlay/Overlay.jsx';
-import { Popup } from '../../components/Popup/Popup';
-import { AuthForm } from '../../components/AuthForm/AuthForm';
+
+import { useRouter } from 'next/navigation'
 
 export default function GamePage(props) {
-  const [isPopUpOpened, setIsPopUpOpened] = useState(false);
-  const openPopup = () => {
-    setIsPopUpOpened(true);
-  }
-  const closePopup = () => {
-    setIsPopUpOpened(false);
-
-  }
+  const router = useRouter()
+  
   const id = props.params.id;
   console.log(id);
   const game = getGamesById(id);
@@ -37,7 +29,7 @@ export default function GamePage(props) {
               </div>
               <div className={Styles["about__vote"]}>
                 <p className={Styles["about__vote-amount"]}>За игру уже проголосовали: <span className={Styles["about__accent"]}>{game.users.length}</span></p>
-                <button className={`button ${Styles["about__vote-button"]}`} onClick={openPopup}>Голосовать</button>
+                <button className={`button ${Styles["about__vote-button"]}`}  onClick={() => router.push('/profile')} >Голосовать</button>
               </div>
             </section>
           </>
@@ -48,10 +40,7 @@ export default function GamePage(props) {
         )
 
       }
-      <Overlay onCloseClick={closePopup} isOpen={isPopUpOpened} />
-      <Popup onCloseClick={closePopup} isOpen={isPopUpOpened} >
-        <AuthForm />
-      </Popup>
+     
     </main>
   );
 }
