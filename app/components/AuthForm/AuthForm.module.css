@@ -35,6 +35,10 @@
   font-size: 22px;
 }
 
+.form__message {
+  margin-bottom: 20px;
+}
+
 .form__actions {
   display: flex;
   justify-content: center;
@@ -63,7 +67,7 @@
   pointer-events: none;
 }
 
-.form__reset:hover + .form__submit {
+.form__reset:hover+.form__submit {
   color: #000;
   background-color: transparent;
 }

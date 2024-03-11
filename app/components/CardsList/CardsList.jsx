@@ -3,7 +3,6 @@ import {Card} from "./Card"
 import Link from "next/link"
 
 export const CardsList = (props) => {
-    
     return (
         <section className={Styles["list-section"]}>
             <h2 className={Styles["list-section__title"]} id={props.id}>

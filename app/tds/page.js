@@ -1,7 +1,9 @@
 import { getGamesByCategory } from "../data/data-utils";
 import { CardsList } from "../components/CardsList/CardsList";
-export default function Tds () {
-    const tdsGames = getGamesByCategory("TDS");
+import { getNormalizedGamesDataByCategory } from "../api/api-utils";
+import { endpoints } from "../api/config";
+export default async function Tds () {
+    const tdsGames = await getNormalizedGamesDataByCategory(endpoints.games, 'TDS');
 return (
     <main className={"main-inner"}>
       
