@@ -9,7 +9,7 @@ import { useStore } from '@/app/store/app-store';
 
 export const AuthForm = (props) => {
   const authContext = useStore();
-  const [authData, setAuthData] = useState({ identifier: "", password: "" });
+  const [authData, setAuthData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState({ status: null, text: null });
   const handleInput = (e) => {
     setAuthData({ ...authData, [e.target.name]: e.target.value });
@@ -19,17 +19,17 @@ export const AuthForm = (props) => {
     const userData = await authorize(endpoints.login, authData);
     if (isResponseOk(userData)) {
       await getMe(endpoints.me, userData.jwt)
-      authContext.login(userData.user, userData.jwt);
+      authContext.login({...userData, id: userData._id}, userData.jwt);
       setMessage({ status: "success", text: "Вы авторизовались!" });
     } else {
       setMessage({ status: "error", text: "Неверные почта или пароль" });
     }
   };
   useEffect(() => {
-    let timer; 
+    let timer;
     if (authContext.user) {
       timer = setTimeout(() => {
-              /* В props close лежит функция закрытия попапа */
+        /* В props close лежит функция закрытия попапа */
         props.close();
       }, 1000);
     }
@@ -43,7 +43,7 @@ export const AuthForm = (props) => {
         <label className={Styles['form__field']}>
           <span className={Styles['form__field-title']}>Email</span>
           <input onInput={handleInput}
-            className={Styles['form__field-input']} type="email" placeholder="hello@world.com" name="identifier" />
+            className={Styles['form__field-input']} type="email" placeholder="hello@world.com" name="email" />
         </label>
         <label className={Styles['form__field']}>
           <span className={Styles['form__field-title']}>Пароль</span>
