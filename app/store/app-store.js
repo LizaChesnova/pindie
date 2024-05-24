@@ -7,15 +7,14 @@ export const useStore = create((set) => ({
   user: null,
   token: null,
   login: (user, token) => {
-    const jwt = getJWT();
     /* С помощью функции set устанавливаем новое состояние хранилища */
-    set({ isAuth: true, user: { ...user, id: user._id }, token: jwt });
+    set({ isAuth: true, user: { ...user, id: user._id }, token });
     /* Записываем полученный токен */
     setJWT(token);
   },
   logout: (user, token) => {
     /* С помощью функции set устанавливаем новое состояние хранилища */
-    set({ isAuth: false, user:null, token:null });
+    set({ isAuth: false, user: null, token: null });
     /* Записываем полученный токен */
     removeJWT(token);
   },
@@ -36,5 +35,4 @@ export const useStore = create((set) => ({
       set({ isAuth: false, user: null, token: null });
     }
   },
-
 }));
